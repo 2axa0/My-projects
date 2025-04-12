@@ -1,0 +1,48 @@
+def simple_encrypt(text, key):
+    result = ""
+    key = key.lower()
+    key_index = 0
+    key_length = len(key)
+
+    for char in text:
+        if char.isalpha():
+            shift = ord(key[key_index % key_length]) - ord('a')
+            if char.islower():
+                base = ord('a')
+            else:
+                base = ord('A')
+            new_char = chr((ord(char) - base + shift) % 26 + base)
+            result += new_char
+            key_index += 1
+        else:
+            result += char
+    return result
+
+def simple_decrypt(text, key):
+    result = ""
+    key = key.lower()
+    key_index = 0
+    key_length = len(key)
+
+    for char in text:
+        if char.isalpha():
+            shift = ord(key[key_index % key_length]) - ord('a')
+            if char.islower():
+                base = ord('a')
+            else:
+                base = ord('A')
+            new_char = chr((ord(char) - base - shift) % 26 + base)
+            result += new_char
+            key_index += 1
+        else:
+            result += char
+    return result
+
+message = input("Enter English text: ")
+key = input("Enter a word as the key: ")
+
+encrypted = simple_encrypt(message, key)
+print("Encrypted text:", encrypted)
+
+decrypted = simple_decrypt(encrypted, key)
+print("Decrypted text:", decrypted)
